@@ -1,0 +1,13 @@
+{
+  "name": "My ESP8266 Project",
+  "version": "1.0.0",
+  "home_ui": true,
+  "builds": [
+    {
+      "chipFamily": "ESP8266",
+      "parts": [
+        { "path": "gp02ota-waether-v3.ino.bin", "offset": 0 }
+      ]
+    }
+  ]
+}
