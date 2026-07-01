@@ -3,35 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apocalypse Companion Web Flasher</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-            background-color: #f4f4f9;
-        }
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            display: inline-block;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        h1 { color: #333; }
-        p { color: #666; margin-bottom: 30px; }
-    </style>
+    <title>Firmware Flash Utility</title>
     <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #3b82f6;
+            --accent-hover: #2563eb;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 480px;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            border: 1px solid #334155;
+            text-align: center;
+        }
+
+        .icon-container {
+            width: 64px;
+            height: 64px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px auto;
+            color: var(--accent-color);
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.025em;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 0 0 30px 0;
+        }
+
+        .steps {
+            text-align: left;
+            background: rgba(15, 23, 42, 0.4);
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 1px solid #334155;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 8px 0;
+        }
+
+        .step-number {
+            background: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        /* Styling the custom ESP web tools button shadow DOM */
+        esp-web-install-button {
+            --esp-tools-button-color: var(--text-main);
+            --esp-tools-button-bg: var(--accent-color);
+            --esp-tools-button-border-radius: 8px;
+            display: block;
+            width: 100%;
+        }
+
+        /* Target the actual button slot inside the web component */
+        esp-web-install-button button {
+            width: 100%;
+            padding: 14px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            background-color: var(--accent-color);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+        }
+
+        esp-web-install-button button:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.4);
+        }
+        
+        esp-web-install-button button:active {
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>ESP8266 Firmware Web Flasher</h1>
-        <p>Connect your ESP8266 via USB, then click the button below to flash the latest firmware.</p>
-        
-        <esp-web-install-button manifest="manifest.json">
-            <button slot="activate">Connect & Flash</button>
-        </esp-web-install-button>
+    <div class="wrapper">
+        <div class="card">
+            <div class="icon-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>
+            </div>
+            
+            <h1>Firmware Installer</h1>
+            <p>Flash your ESP8266 node directly via web serial interface.</p>
+            
+            <div class="steps">
+                <div class="step-item"><span class="step-number">1</span> Connect device to USB port</div>
+                <div class="step-item"><span class="step-number">2</span> Click the Flash button below</div>
+                <div class="step-item"><span class="step-number">3</span> Select correct COM port in browser list</div>
+            </div>
+            
+            <esp-web-install-button manifest="./manifest.json">
+                <button slot="activate">Connect & Flash</button>
+            </esp-web-install-button>
+        </div>
     </div>
 
 </body>
